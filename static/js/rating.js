@@ -14,7 +14,7 @@ async function salvarAvaliacao() {
       if (data.success) {
         return true
       } else {
-        alert('Erro: ' + data.error);
+        console.log('Erro: ' + data.error);
       }
 
     } catch (err) {
