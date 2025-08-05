@@ -126,31 +126,48 @@ def rating():
 
     save_db(db)  # mesmo que não redirecione, salvar possíveis resets
 
-    # Sorteia 16 perguntas aleatórias
-    perguntas = random.sample(ASKMUSIC, 16)
-    images = random.sample(IMGSRANDOM, 16)
+    # Calcula avaliações restantes
+    avaliacoes_restantes = 16 - user['evaluations_today']
 
-    return render_template('rating.html', user=user, perguntas=perguntas, images=images)
+    # Sorteia X perguntas e imagens aleatórias baseadas na quantidade faltante
+    perguntas = random.sample(ASKMUSIC, avaliacoes_restantes)
+    images = random.sample(IMGSRANDOM, avaliacoes_restantes)
+
+    return render_template('rating.html', user=user, perguntas=perguntas, images=images, avaliacoes_restantes=avaliacoes_restantes)
+
+from flask import jsonify
 
 @app.route('/salvar-avaliacoes', methods=['POST'])
 def salvar_avaliacoes():
     if 'username' not in session:
         return redirect(url_for('login'))
 
-    db = load_db()
-    username = session['username']
-    user = db['users'][username]
+    try:
+        db = load_db()
+        username = session['username']
+        user = db['users'][username]
 
-    today = datetime.now().date().isoformat()
+        today = datetime.now().date().isoformat()
 
-    user['evaluations_today'] = 16
-    user['earned_today'] = 120.0
-    user['balance'] += 120.0
-    user['last_evaluation_date'] = today
+        # Resetar contadores se for novo dia
+        resetar_se_novo_dia(user)
 
-    save_db(db)
+        # Verificar se já atingiu o limite
+        if user['evaluations_today'] >= 16 or user['earned_today'] >= 120.0:
+            return jsonify(success=False, error="Limite diário atingido.")
 
-    return redirect(url_for('dashboard'))
+        # Atualiza os dados do usuário
+        user['evaluations_today'] += 1
+        user['earned_today'] += 7.5
+        user['balance'] += 7.5
+        user['last_evaluation_date'] = today
+
+        save_db(db)
+        return jsonify(success=True)
+    
+    except Exception as e:
+        return jsonify(success=False, error=str(e))
+
 
 
 # Rota de logout
@@ -161,7 +178,4 @@ def logout():
 
 # Execução local
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=8080)
-
-
-
+    app.run(debug=True, host='0.0.0.0', port=8080)

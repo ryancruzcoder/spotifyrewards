@@ -3,6 +3,26 @@ var youwin = document.getElementById('youwin');
 var audio = new Audio('./static/mp3/cash.mp3');
 var numberModal = document.getElementById("numberModal")
 
+async function salvarAvaliacao() {
+    try {
+      const response = await fetch('/salvar-avaliacoes', {
+        method: 'POST'
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        return true
+      } else {
+        alert('Erro: ' + data.error);
+      }
+
+    } catch (err) {
+      console.error('Erro na requisição:', err);
+      alert('Ocorreu um erro ao salvar a avaliação. Tente novamente.');
+    }
+}
+
 function increaseSaldo(v) {
     numberModal.textContent = v
     var increment = 0.05;
@@ -22,11 +42,12 @@ function increaseSaldo(v) {
     }, interval);
 }
 
-function proximaAvaliacao(i) {
+async function proximaAvaliacao(i) {
     // Esconde avaliação atual
     youwin.style.display = 'block'
     increaseSaldo(7.50)
     audio.play();
+    await salvarAvaliacao()
     setTimeout(() => {
         document.getElementById('rating-' + i).style.display = 'none';
         let proximo = i + 1;

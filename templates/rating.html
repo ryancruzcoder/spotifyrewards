@@ -14,7 +14,7 @@
     </head>
     <body>
         <header class="container-fluid py-3 px-4  pb-4 d-flex flex-row justify-content-between align-items-center">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" onerror="this.onerror=null;this.src='../static/img/logo.png';" width="150px" alt="Imagem">
+            <img onclick="location.href='/'" src="{{ url_for('static', filename='img/logo.png') }}" onerror="this.onerror=null;this.src='../static/img/logo.png';" width="150px" alt="Imagem">
             <div class="d-flex flex-row justify-content-between align-items-center gap-2">
                 <div id="balance" class="text-light text-center px-3 py-2 rounded">
                     <b class="wallet">
@@ -31,7 +31,7 @@
             </div>
         </header>
 
-        {% for i in range(16) %}
+        {% for i in range(avaliacoes_restantes) %}
             <div class="container mt-5 mx-auto containerData rating text-center bg-box text-light" id="rating-{{ i }}" style="{% if i != 0 %}display:none{% endif %}">
                 <img src="{{ url_for('static', filename='img/' ~ images[i] ~ '.jpg') }}" onerror="this.onerror=null;this.src='../static/img/' + '{{images[i]}}.jpg';" width="100%" alt="Imagem">
                 <br>
@@ -63,12 +63,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Para salvar suas avaliações e o seu saldo, clique no botão abaixo.
+                    Limite diário de avaliações atingida! Volte amanhã para continuar.
                 </div>
                 <div class="modal-footer">
-                    <form action="/salvar-avaliacoes" method="post">
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">SALVAR</button>
-                    </form>
+                    <button type="button" onclick="location.href='/dashboard'" class="btn btn-primary" data-bs-dismiss="modal">Entendi</button>
                 </div>
                 </div>
             </div>
