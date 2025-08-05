@@ -95,7 +95,8 @@ def dashboard():
     user = db['users'].get(username)
 
     if not user:
-        return "User not found.", 404
+        session.pop('username', None)
+        return redirect(url_for('login'))
 
     # Verifica se já é outro dia e zera a contagem
     today = datetime.now().date().isoformat()
@@ -179,3 +180,4 @@ def logout():
 # Execução local
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8080)
+
