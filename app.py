@@ -161,4 +161,5 @@ def logout():
 
 # Execução local
 if __name__ == '__main__':
-    app.run(debug=True, host='192.168.15.117', port=8080)
+    app.run(debug=True, port=5000)
+
