@@ -38,25 +38,28 @@
                 <div class="mb-3">
                     <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                 </div>
-                <button type="submit" class="btn bg-btn">Login</button>
-                <button class="btn bg-btn2 mt-2">Cadastre-se</button>
+                <button type="submit" class="btn bg-btn" id="login">Login</button>
+                <button class="btn bg-btn2 mt-2" id="to-register">Cadastre-se</button>
             </form>
 
             <form action="/register" method="post" id="formRegister" class="d-none">
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="username" placeholder="Username" name="username">
+                    <input type="text" class="form-control" id="confirm-username" placeholder="Username" name="username">
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    <input type="password" class="form-control" id="confirm-password" name="password" placeholder="Password">
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm password">
+                    <input type="password" class="form-control" id="confirm-confirm-password" name="confirm-password" placeholder="Confirm password">
                 </div>
-                <button type="submit" class="btn bg-btn">Criar Conta</button>
-                <button class="btn bg-btn2 mt-2">Faça Login</button>
+                <button type="submit" class="btn bg-btn" id="create-account">Criar Conta</button>
+                <button class="btn bg-btn2 mt-2" id="to-login">Faça Login</button>
             </form>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-        <script src="../static/js/login.js" defer></script>
+        <script src="../static/js/login.js" defer></script> <!-- Live Server -->
+        <script src="../static/js/lang-login.js" defer></script> <!-- Live Server -->
+        <script src="{{ url_for('static', filename='js/login.js') }}" defer></script> <!-- Flask -->
+        <script src="{{ url_for('static', filename='js/lang-login.js') }}" defer></script> <!-- Flask -->
     </body>
 </html>

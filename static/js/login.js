@@ -7,7 +7,7 @@ formLogin.addEventListener("submit", (e)=>{
     if (e.submitter.classList[1] === 'bg-btn2') {
         formLogin.classList.add("d-none")
         formRegister.classList.remove("d-none")
-        titleForm.textContent = 'Junte-se ao Spotify Rewards'
+        titleForm.textContent = 'Únete a Spotify Rewards'
     } else {
         formLogin.submit(   )  
     }
@@ -18,7 +18,7 @@ formRegister.addEventListener("submit", (e)=>{
     if (e.submitter.classList[1] === 'bg-btn2') {
         formLogin.classList.remove("d-none")
         formRegister.classList.add("d-none")
-        titleForm.textContent = 'Entre na sua conta para continuar'
+        titleForm.textContent = 'Inicia sesión para continuar'
     } else {
         formRegister.submit(   )  
     }

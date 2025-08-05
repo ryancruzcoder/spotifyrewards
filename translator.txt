@@ -1,0 +1,5 @@
+1° login.js
+2° Asks in app.py
+3° Messages alert in app.py
+4° Lang files
+5° Yes or No in rating.html
